@@ -1,60 +1,20 @@
-import { useState } from 'react';
 import './App.css';
+import { Routes, Route, Link } from 'react-router-dom';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
+import Calculator from './pages/myprojects/Calculator';
 
 function App() {
-
-  const [screenValue, setScreenValue] = useState("0.0")
-
-  const handleButtonClick = (e)=>{
-    let icon = e.target.value;
-    if (icon === 'AC'){
-      setScreenValue('0.0')
-    }else if (icon === "="){
-      setScreenValue(eval(screenValue))
-    }else{
-      if (screenValue==='0.0'){
-        setScreenValue(icon);
-      }else{
-        setScreenValue(screenValue+icon);
-
-      }
-    }
-  }
-
-  const iconlist = [
-    ["AC", "%", "/", "+/-"],
-    ["1", "2", "3", "+"],
-    ["4", "5", "6", "-"],
-    ["7", "8", "9", "*"],
-    [".", "0", "=", ""],
-  ]
-
-  const Screen = ()=>{
-    return <div className='screen'>{screenValue}</div>
-  }
-
-  const Buttons = ()=>{
-    return <div className='buttons'>
-      {
-        iconlist.map(icons=>
-          <div className='buttonContainer'>
-            {
-              icons.map(icon=>
-                <button className='button' onClick={handleButtonClick} value={icon}>{icon}</button>
-                )
-            }
-          </div>
-          )
-      }
+  return <div>
+    <div>
+      <Link to={"/"}>Home</Link>
+      <Link to={"/projects"}>Projects</Link>
     </div>
-  }
-
-  return (
-    <div className="container">
-      <Screen/>
-      <Buttons/>
-    </div>
-  );
+     <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="projects" element={<Projects />} />
+        <Route path="projects/calculator" element={<Calculator />} />
+      </Routes>
+  </div>
 }
-
 export default App;
